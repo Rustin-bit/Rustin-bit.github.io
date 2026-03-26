@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/static/style.css?v=2">
+    <title>搜索结果</title>
+</head>
+<body>
+<a href="https://adp.cloud.tencent.com/adp/?spaceId=default_space#/app/knowledge/app-config?appid=2031381381141682368&appType=knowledge_qa&spaceId=default_space" 
+   class="agent-container"
+   target="_blank">
+    <div class="agent-circle"></div>
+    <img src="/static/Yee.svg" class="agent-img">
+    <div class="agent-bubble">
+        💡 Ask Yee about Tang Poetry
+    </div>
+</a>
+    
+<div class="poet-header">
+<h1><span lang="en">Poems Containing</span> “{{ keyword }}”</h1>
+
+<p style="font-size:18px;">
+  <span lang="en"><strong>{{ total_count }}</strong> poems found</span>
+</p>
+</div>
+
+<h2 class="section-title">
+    <span lang="en">Poem List</span>
+</h2>
+
+<div class="poem-grid">
+{% for poem in results %}
+    <div class="poem-card">
+        <h3>{{ poem.title }} —— {{ poem.author }}</h3>
+
+        {% for line in poem.paragraphs[:2] %}
+            <p>{{ line }}</p >
+        {% endfor %}
+
+        <a class="detail-link" href="/poem/{{ poem.id }}">
+            <span lang="en">View Details</span>
+        </a>
+    </div>
+{% endfor %}
+</div>
+
+<div class="pagination">
+    {% if page > 1 %}
+        <a href="/keyword?keyword={{ keyword }}&page={{ page-1 }}">
+            <span lang="en">Prev</span>
+        </a>
+    {% endif %}
+
+    <span lang="en">Page {{ page }} of {{ total_pages }}</span>
+
+    {% if page < total_pages %}
+        <a href="/keyword?keyword={{ keyword }}&page={{ page+1 }}">
+            <span lang="en">Next</span>
+        </a>
+    {% endif %}
+</div>
+
+<br>
+<a href="/home" class="home-btn"></a>
+
+<script>
+document.addEventListener("click", function(e) {
+
+    const ripple = document.createElement("span");
+    ripple.classList.add("ripple");
+
+    const size = 60;
+
+    ripple.style.width = size + "px";
+    ripple.style.height = size + "px";
+
+    ripple.style.left = (e.clientX - size/2) + "px";
+    ripple.style.top = (e.clientY - size/2) + "px";
+
+    document.body.appendChild(ripple);
+
+    setTimeout(() => {
+        ripple.remove();
+    }, 600);
+});
+</script>
+</body>
+</html>

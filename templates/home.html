@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>全唐诗智能平台</title>
+<link rel="stylesheet" href="/static/style.css?v=2">
+</head>
+<style>
+body {
+  overflow: hidden;
+}
+</style>
+<body>
+
+<a href="https://adp.cloud.tencent.com/adp/?spaceId=default_space#/app/knowledge/app-config?appid=2031381381141682368&appType=knowledge_qa&spaceId=default_space" 
+   class="agent-container"
+   target="_blank">
+    <div class="agent-circle"></div>
+    <img src="/static/Yee.svg" class="agent-img">
+    <div class="agent-bubble">
+        💡 Ask Yee about Tang Poetry
+    </div>
+</a>
+
+<h1 class="main-title">
+    <span lang="en"><i>Tang Poetry</i> AI Smart Platform</span>
+</h1>
+
+<div class="center-container">
+<div class="palace-news">
+
+<h2 class="section-title">
+    <span lang="en">Palace News</span>
+</h2>
+
+<ul>
+
+{% for item in palace_news %}
+<li>
+<a href="{{ item.link }}">
+{{ item.news }}
+</a>
+</li>
+{% endfor %}
+
+</ul>
+
+</div>
+
+    <!-- 按诗人搜索 -->
+    <div class="search-section">
+        <h2>
+            <span lang="en">Search by Poet</span>
+        </h2>
+        <form action="/poet" method="get">
+            <input type="text" name="name" placeholder="Enter poet's name in Chinese">
+            <button type="submit">
+                <span lang="en">Search</span>
+            </button>
+        </form>
+    </div>
+
+    <!-- 按关键字搜索 -->
+    <div class="search-section">
+        <h2>
+            <span lang="en">Search by Keyword</span>
+        </h2>
+        <form action="/keyword" method="get">
+            <input type="text" name="keyword" placeholder="Enter keyword in Chinese">
+            <button type="submit">
+                <span lang="en">Search</span>
+            </button>
+        </form>
+    </div>
+
+    <!-- 词云按钮 -->
+    <div class="cloud-button">
+        <button onclick="window.location.href='/wordcloud'">
+            <span lang="en">
+                <i>Tang Poetry</i> Word Cloud
+            </span>
+        </button>
+    <!-- 数量按钮 -->
+        <button onclick="window.location.href='/ranking'">
+            <span lang="en">
+                Poet Ranking by Poem Count
+            </span>
+        </button>
+    </div>
+
+
+</div>
+<script>
+document.addEventListener("click", function(e) {
+
+    const ripple = document.createElement("span");
+    ripple.classList.add("ripple");
+
+    const size = 60;
+
+    ripple.style.width = size + "px";
+    ripple.style.height = size + "px";
+
+    ripple.style.left = (e.clientX - size/2) + "px";
+    ripple.style.top = (e.clientY - size/2) + "px";
+
+    document.body.appendChild(ripple);
+
+    setTimeout(() => {
+        ripple.remove();
+    }, 600);
+});
+</script>
+
+</body>
+</html>

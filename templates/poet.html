@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/static/style.css?v=2">
+    <title>{{ poet.name if poet else "Poet Not Found" }}</title>
+
+</head>
+<body>
+<a href="https://adp.cloud.tencent.com/adp/?spaceId=default_space#/app/knowledge/app-config?appid=2031381381141682368&appType=knowledge_qa&spaceId=default_space" 
+   class="agent-container"
+   target="_blank">
+    <div class="agent-circle"></div>
+    <img src="/static/Yee.svg" class="agent-img">
+    <div class="agent-bubble">
+        💡 Ask Yee about Tang Poetry
+    </div>
+</a>
+{% if poet %}
+<div class="poet-header">
+    <h1>{{ poet.name }}</h1>
+    <p>{{ poet.desc }}</p>
+    <h2>
+        {{ poet.name }} <span lang="en">Word Cloud</span>
+    </h2>
+</div>
+
+    <div id="poetCloud" style="height:500px;"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts-wordcloud/dist/echarts-wordcloud.min.js"></script>
+
+<style>
+/* 定义fontC字体 */
+@font-face {
+    font-family: "FontC"; /* 自定义字体名，后续ECharts要对应 */
+    src: url("/static/fontC.ttf") format("truetype"); /* 字体文件路径 */
+    font-display: swap; /* 优化字体加载体验，避免空白闪烁 */
+}
+</style>
+
+    <script>
+    var chart = echarts.init(document.getElementById('poetCloud'));
+
+    fetch("/poet_wordfreq/{{ poet.name }}")
+    .then(response => response.json())
+    .then(data => {
+
+        var option = {
+            series: [{
+                type: 'wordCloud',
+                rotationRange: [0, 0],  // 横向
+                sizeRange: [15, 60],
+            textStyle: {
+                // 🔥 替换为自定义的FontC字体（和上面@font-face的font-family一致）
+                fontFamily: 'FontChinese', 
+                    color: function () {
+                        return 'rgb(' +
+                            Math.round(Math.random() * 200) + ',' +
+                            Math.round(Math.random() * 200) + ',' +
+                            Math.round(Math.random() * 200) + ')';
+                    }
+                },
+                data: data
+            }]
+        };
+
+        chart.setOption(option);
+
+        // 点击跳转：只显示该诗人的诗
+        chart.on('click', function (params) {
+            window.location.href =
+            "/search?keyword=" + params.name + "&poet={{ poet.name }}";
+        });
+
+    });
+
+    document.addEventListener("click", function(e) {
+
+        const ripple = document.createElement("span");
+        ripple.classList.add("ripple");
+
+        const size = 60;
+
+        ripple.style.width = size + "px";
+        ripple.style.height = size + "px";
+
+        ripple.style.left = (e.clientX - size/2) + "px";
+        ripple.style.top = (e.clientY - size/2) + "px";
+
+        document.body.appendChild(ripple);
+
+        setTimeout(() => {
+            ripple.remove();
+        }, 600);
+    });
+    </script>
+    <h2 class="section-title">
+        <span lang="en">Poem list</span>
+    </h2>
+
+    <div class="poem-grid">
+    {% for poem in poems %}
+        <div class="poem-card">
+            <h3>{{ poem.title }}</h3>
+
+            <!-- 只显示前两句 -->
+            {% for line in poem.paragraphs[:2] %}
+                <p>{{ line }}</p>
+            {% endfor %}
+
+            <a class="detail-link" href="/poem/{{ poem.id }}">
+                <span lang="en">View Details</span>
+            </a>
+        </div>
+    {% endfor %}
+    </div>
+
+    <div class="pagination">
+        {% if page > 1 %}
+            <a href="/poet?name={{ name }}&page={{ page-1 }}">
+                <span lang="en">Prev</span>
+            </a>
+        {% endif %}
+
+        <span lang="en">Page {{ page }} of {{ total_pages }}</span>
+
+        {% if page < total_pages %}
+            <a href="/poet?name={{ name }}&page={{ page+1 }}">
+                <span lang="en">Next</span>
+            </a>
+        {% endif %}
+    </div>
+
+{% else %}
+    <h2>
+        <span lang="en">Poet Not Found</span>
+    </h2>
+{% endif %}
+
+<br>
+<a href="/home" class="home-btn"></a>
+
+</body>
+</html>

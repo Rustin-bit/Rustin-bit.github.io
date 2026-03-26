@@ -1,0 +1,221 @@
+{
+  "main": {
+    "id": "a3686f5f5ab88626",
+    "type": "split",
+    "children": [
+      {
+        "id": "6ae7de83448e113b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "5fb01a6de088801e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "欢迎.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "欢迎"
+            }
+          },
+          {
+            "id": "ddb9e243572ccd82",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "zh/poets/杜甫.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "杜甫"
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "3ccd39c7155c70cc",
+    "type": "split",
+    "children": [
+      {
+        "id": "306a794bb1f56853",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "146ff8c0cee1f356",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "2d7f5771042f9736",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "bce2f9fe081f567f",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "6c310940468de266",
+    "type": "split",
+    "children": [
+      {
+        "id": "e67c94a397a45a0b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "51406993032d7180",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "zh/poets/杜甫.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "杜甫 的反向链接列表"
+            }
+          },
+          {
+            "id": "0933739473241151",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "zh/poets/杜甫.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from 杜甫"
+            }
+          },
+          {
+            "id": "5de1619000a33ae6",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "cc3e828e3065231b",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "添加笔记属性"
+            }
+          },
+          {
+            "id": "5c85dadb4c577a83",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "欢迎.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "欢迎 的大纲"
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "ddb9e243572ccd82",
+  "lastOpenFiles": [
+    "创建链接.md",
+    "poets/杜甫.md",
+    "zh/poets/杜甫.md",
+    "zh/poets/未命名 1.md",
+    "zh/poems",
+    "zh/poets",
+    "zh",
+    "2026-03-10.md",
+    "未命名 1.base",
+    "未命名.canvas",
+    "zh/styles",
+    "zh/periods",
+    "未命名.base",
+    "未命名.md",
+    "imagery",
+    "poets",
+    "欢迎.md"
+  ]
+}

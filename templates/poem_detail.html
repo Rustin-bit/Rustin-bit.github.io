@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>{{ poem.title }}</title>
+<link rel="stylesheet" href="/static/style.css?v=2">
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+
+<style>
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;   /* 页面不滚动 */
+}
+.detail-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+
+    padding: 60px 8%;
+    box-sizing: border-box;
+
+    height: 100vh;   /* 占满屏幕 */
+}
+.poem-section {
+    background: rgba(255,255,255,0.9);
+
+    height: 100%;
+    overflow-y: auto;     /* 出现独立滚动条 */
+
+    padding: 40px;
+    border-radius: 12px;
+
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+.ai-section {
+    background: rgba(255,255,255,0.95);
+
+    height: 100%;
+    overflow-y: auto;     /* 第二个滚动条 */
+
+    padding: 40px;
+    border-radius: 12px;
+
+    border: 2px solid #d8d2c2;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+</style>
+
+<body class="detail-page">
+<a href="https://adp.cloud.tencent.com/adp/?spaceId=default_space#/app/knowledge/app-config?appid=2031381381141682368&appType=knowledge_qa&spaceId=default_space" 
+   class="agent-container"
+   target="_blank">
+    <div class="agent-circle"></div>
+    <img src="/static/Yee.svg" class="agent-img">
+    <div class="agent-bubble">
+        💡 Ask Yee about Tang Poetry
+    </div>
+</a>
+
+<div class="detail-container">
+
+    <!-- 左侧：诗歌原文 -->
+    <div class="poem-section">
+        <h1 class="poem-title">{{ poem.title }}</h1>
+        <h3 class="poem-author">{{ poem.author }}</h3>
+
+        <div class="poem-content">
+            {% for line in poem.paragraphs %}
+                <p>{{ line }}</p>
+            {% endfor %}
+        </div>
+
+        <a href="/home" class="home-btn"></a>
+    </div>
+
+    <!-- 右侧：AI解诗板块 -->
+    <div class="ai-section">
+
+        <h2 class="ai-title">
+            <span lang="en">AI Poetry Analysis</span>
+        </h2>
+
+        <!-- 语言选择 -->
+        <div class="ai-controls">
+            <label>
+                <span lang="en">Language:</span>
+            </label>
+            <select id="language">
+                <option value="english">English</option>
+                <option value="chinese">中文</option>
+                <option value="japanese">日本語</option>
+                <option value="french">Français</option>
+                <option value="spanish">Español</option>
+                <option value="german">Deutsch</option>
+                <option value="russian">Русский</option>
+            </select>
+
+            <button onclick="generateAI()" class="ai-btn">
+                <span lang="en">Generate</span>
+            </button>
+        </div>
+
+        <!-- 加载提示 -->
+        <div id="loading" class="loading-text"></div>
+
+        <!-- 结果区域 -->
+        <div id="result" class="ai-result"></div>
+
+    </div>
+
+</div>
+
+<script>
+function generateAI() {
+    const lang = document.getElementById("language").value;
+    const loading = document.getElementById("loading");
+    const resultDiv = document.getElementById("result");
+
+    loading.innerText = "Generating analysis, please wait...";
+    resultDiv.innerHTML = "";  // 清空
+
+    fetch(`/ai_explain/{{ poem_id }}?lang=${lang}`)
+        .then(response => response.json())
+        .then(data => {
+            loading.innerText = "";
+
+            // 将 Markdown 转换为 HTML
+            const htmlContent = marked.parse(data.result);
+            // 直接设置 HTML（带淡入效果）
+            resultDiv.innerHTML = htmlContent;
+            // 添加一个类触发 CSS 动画
+            resultDiv.classList.add('fade-in');
+        })
+        .catch(error => {
+            loading.innerText = "Error loading analysis.";
+            console.error(error);
+        });
+}
+
+document.addEventListener("click", function(e) {
+
+    const ripple = document.createElement("span");
+    ripple.classList.add("ripple");
+
+    const size = 60;
+
+    ripple.style.width = size + "px";
+    ripple.style.height = size + "px";
+
+    ripple.style.left = (e.clientX - size/2) + "px";
+    ripple.style.top = (e.clientY - size/2) + "px";
+
+    document.body.appendChild(ripple);
+
+    setTimeout(() => {
+        ripple.remove();
+    }, 600);
+});
+</script>
+
+</body>
+</html>
