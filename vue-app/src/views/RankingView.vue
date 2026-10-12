@@ -1,8 +1,11 @@
 <script setup>
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useBodyScrollLock } from '../composables/useBodyScrollLock'
 
 document.title = 'Poet Ranking'
+
+useBodyScrollLock()
 
 const router = useRouter()
 
@@ -104,9 +107,3 @@ onMounted(async () => {
     <div id="chart" style="width: 1200px; height: 700px; margin: auto"></div>
   </div>
 </template>
-
-<style scoped>
-:global(body) {
-  overflow: hidden;
-}
-</style>

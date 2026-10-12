@@ -1,8 +1,11 @@
 <script setup>
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useBodyScrollLock } from '../composables/useBodyScrollLock'
 
 document.title = 'Tang Poetry Word Cloud'
+
+useBodyScrollLock()
 
 const router = useRouter()
 
@@ -239,6 +242,36 @@ onMounted(async () => {
   margin-right: 100px;
 }
 
+.pagination-rank {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.pagination-rank button {
+  background: #c9a227; /* 金色 */
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-family: FontEnglish;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.pagination-rank button:hover {
+  background: #a8841c;
+}
+</style>
+
+<style>
+@font-face {
+  font-family: 'FontChinese';
+  src: url('/static/fontC.ttf');
+}
+
 .rank-item {
   display: flex;
   align-items: center;
@@ -269,39 +302,5 @@ onMounted(async () => {
   width: 60px;
   text-align: right;
   font-family: FontEnglish;
-}
-
-.pagination-rank {
-  margin-top: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
-}
-
-.pagination-rank button {
-  background: #c9a227; /* 金色 */
-  color: white;
-  border: none;
-  padding: 6px 14px;
-  border-radius: 6px;
-  font-family: FontEnglish;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.pagination-rank button:hover {
-  background: #a8841c;
-}
-
-:global(body) {
-  overflow: hidden;
-}
-</style>
-
-<style>
-@font-face {
-  font-family: 'FontChinese';
-  src: url('/static/fontC.ttf');
 }
 </style>

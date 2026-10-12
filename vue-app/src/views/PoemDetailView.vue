@@ -2,6 +2,9 @@
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { loadPoems } from '../composables/usePoems'
+import { useBodyScrollLock } from '../composables/useBodyScrollLock'
+
+useBodyScrollLock()
 
 const route = useRoute()
 const poem = ref(null)
@@ -158,12 +161,6 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-:global(html),
-:global(body) {
-  height: 100%;
-  margin: 0;
-  overflow: hidden; /* 页面不滚动 */
-}
 .detail-container {
   display: grid;
   grid-template-columns: 1fr 1fr;

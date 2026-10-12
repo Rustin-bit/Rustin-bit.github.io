@@ -1,6 +1,9 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { useBodyScrollLock } from '../composables/useBodyScrollLock'
+
+useBodyScrollLock()
 
 const router = useRouter()
 const palaceNews = ref([])
@@ -115,8 +118,3 @@ onMounted(async () => {
   </div>
 </template>
 
-<style scoped>
-:global(body) {
-  overflow: hidden;
-}
-</style>

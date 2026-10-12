@@ -1,5 +1,8 @@
 <script setup>
 import { useRouter } from 'vue-router'
+import { useBodyScrollLock } from '../composables/useBodyScrollLock'
+
+useBodyScrollLock()
 
 const router = useRouter()
 
@@ -32,7 +35,6 @@ function handleStart(e) {
 :global(html) {
   width: 100%;
   height: 100%;
-  overflow: hidden;
   font-family: 'Segoe UI', '微软雅黑', sans-serif;
 }
 
