@@ -30,13 +30,23 @@ jobs:
         working-directory: vue-app
         run: npm ci
 
+      - name: Determine base path
+        id: base
+        # 用户/组织主页仓库（<用户名>.github.io）部署在根路径 https://<用户名>.github.io/，
+        # 其余仓库是项目页，部署在 https://<用户名>.github.io/<仓库名>/，
+        # 二者 Vite 的 base 配置不同，这里按仓库名自动判断。
+        run: |
+          if [[ "${{ github.event.repository.name }}" == *.github.io ]]; then
+            echo "path=/" >> "$GITHUB_OUTPUT"
+          else
+            echo "path=/${{ github.event.repository.name }}/" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Build
         working-directory: vue-app
-        # 项目页部署在 https://<用户名>.github.io/<仓库名>/，
-        # Vite 的 base 需要和仓库名一致才能让资源路径正确解析。
         run: npm run build
         env:
-          BASE_PATH: /${{ github.event.repository.name }}/
+          BASE_PATH: ${{ steps.base.outputs.path }}
 
       - uses: actions/upload-pages-artifact@v3
         with:
