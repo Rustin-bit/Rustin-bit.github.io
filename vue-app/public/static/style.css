@@ -1,0 +1,647 @@
+@font-face {
+    font-family: "FontChinese";
+    src: url("/static/fonts/fontC.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "FontEnglish";
+    src: url("/static/fonts/字体.ttf") format("truetype");
+}
+
+:lang(en) {
+    font-family: "FontEnglish", serif;
+}
+
+/* ===== 页面基础 ===== */
+body {
+    font-family: "FontChinese", serif;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    min-height: 100vh;
+    background: #f8f6f2;
+}
+
+/* ===== 背景图（透明处理）===== */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: url("/static/bk2.png") no-repeat center center;
+    background-size: cover;
+
+    opacity: 0.5;   /* 🔥 控制透明度 */
+    z-index: -1;
+}
+
+/* ===== 主标题 ===== */
+.main-title {
+    text-align: center;
+    font-size: 42px;
+    margin-top: 60px;
+    margin-bottom: 40px;
+}
+
+/* 整个页面隐藏滚动条但保留滚动功能 */
+html, body {
+  height: 100%;
+  overflow: auto;
+  scrollbar-width: none;      /* Firefox */
+  -ms-overflow-style: none;   /* IE / Edge */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;              /* Chrome / Safari / Edge */
+}
+
+/* ===== 首页布局 ===== */
+.home-container {
+    width: 80%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    margin-top: 40px;
+}
+
+/* ===== 卡片设计 ===== */
+.home-card {
+    background: rgba(255,255,255,0.85);  /* 半透明白色 */
+    padding: 40px;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.home-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.home-card a {
+    text-decoration: none;
+    color: #333;
+}
+
+/* ===== 页面整体稍微右移 ===== */
+.center-container {
+    margin-top: 80px;
+    margin-left: 8%;   /* 向右移动一点 */
+}
+
+/* ===== 搜索区块 ===== */
+.search-section {
+    margin-bottom: 70px;   /* 上下间距拉开 */
+}
+
+/* 小标题 */
+.search-section h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+/* 输入框放大 */
+.search-section input {
+    padding: 16px;
+    width: 380px;      /* 变宽 */
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #bbb;
+    font-family: "TangFont";
+}
+
+/* 搜索按钮 */
+.search-section button {
+    padding: 16px 30px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    font-family: "TangFont";
+}
+
+.search-section button:hover {
+    background-color: #555;
+}
+
+/* ===== 词云按钮放大 ===== */
+.cloud-button {
+    margin-top: 90px;
+    flex-direction: column; 
+    gap: 30px;  /* 与上方拉开距离 */
+}
+
+.cloud-button button {
+    width: 300px;
+    height: 60px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: none;
+    background-color: #c9a227;
+    display: block;
+    margin-bottom: 30px;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.cloud-button button:hover {
+    background-color: #b8951d;
+    transform: translateY(-3px);
+}
+
+.poet-header{
+    margin-left: 1%;   /* 向右移动 */
+    margin-top: 40px;
+}
+
+/* ===== 列表标题居中 ===== */
+.section-title {
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 40px;
+    font-size: 28px;
+}
+
+/* ===== 网格布局 ===== */
+.poem-grid {
+    width: 85%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);  /* 两列 */
+    gap: 30px;
+}
+
+
+
+/* 查看详情按钮 */
+.detail-link {
+    align-self: flex-start;
+    margin-top: auto;
+    padding: 8px 18px;
+    background-color: #c9a227;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.detail-link:hover {
+    background-color: #b8951d;
+}
+
+.poem-card {
+    position: relative;
+    background: rgba(255,255,255,0.95);
+    padding: 25px;
+    border-radius: 10px;
+    border: 1.5px solid #d8d2c2;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: all 0.3s ease;
+}
+
+/* 半透明遮罩（保证文字清晰） */
+.poem-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.85);
+    border-radius: 10px;
+    opacity: 0.6;
+}
+
+/* 内容层放在遮罩之上 */
+.poem-card > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* 第一行 */
+.poem-card:nth-child(8n+1) {
+    background-image: url("/static/1.jpg");
+}
+.poem-card:nth-child(8n+2) {
+    background-image: url("/static/2.jpg");
+}
+.poem-card:nth-child(8n+3) {
+    background-image: url("/static/3.jpg");
+}
+.poem-card:nth-child(8n+4) {
+    background-image: url("/static/4.jpg");
+}
+
+/* 第二行 */
+.poem-card:nth-child(8n+5) {
+    background-image: url("/static/5.jpg");
+}
+.poem-card:nth-child(8n+6) {
+    background-image: url("/static/6.png");
+}
+.poem-card:nth-child(8n+7) {
+    background-image: url("/static/7.jpg");
+}
+.poem-card:nth-child(8n+8) {
+    background-image: url("/static/8.jpg");
+}
+
+.poem-card:hover {
+    transform: translateY(-5px);
+    border: 3px solid #c9a227;   /* 加粗金色边框 */
+    background: transparent;     /* 无填充 */
+    box-shadow: none;            /* 去掉阴影，更干净 */
+}
+
+/* ================= 封面页 ================= */
+
+body.cover-page, html.cover-page {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* 封面容器 */
+.cover {
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    background-image: url('/static/cover.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* 淡出动画 */
+.cover.fade-out {
+    opacity: 0;
+    transform: scale(1.05);
+}
+
+/* 半透明遮罩 */
+.cover::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+/* 按钮容器 */
+.button-wrapper {
+    position: absolute;
+    bottom: 8%;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    z-index: 2;
+}
+
+/* START按钮 */
+.start-btn {
+    display: inline-block;
+    padding: 12px 28px;
+
+    background-color: rgb(249, 238, 205);
+    color: #3a2c1b;
+
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing: 4px;
+
+    text-decoration: none;
+
+    border-radius: 50px;
+    border: 2px solid #d8d2c2;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* 悬停 */
+.start-btn:hover {
+    background-color: #c9a227;
+    color: white;
+    border-color: #b58c1f;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(201, 162, 39, 0.4);
+}
+
+/* 点击 */
+.start-btn:active {
+    transform: translateY(0px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* ================= 全局点击涟漪效果 ================= */
+
+/* ================= 水墨点击涟漪 ================= */
+
+.ripple {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+
+    background: radial-gradient(circle,
+        rgba(0, 0, 0, 0.25) 0%,
+        rgba(0, 0, 0, 0.18) 30%,
+        rgba(0, 0, 0, 0.10) 55%,
+        rgba(0, 0, 0, 0.05) 75%,
+        rgba(0, 0, 0, 0) 100%);
+
+    transform: scale(0);
+    animation: inkRipple 0.5s cubic-bezier(.22,.61,.36,1) forwards;
+
+    z-index: 9999;
+}
+
+@keyframes inkRipple {
+    to {
+        transform: scale(2.2);   /* 原来是4，现在缩小 */
+        opacity: 0;
+    }
+}
+
+/* ===== 详情页整体布局 ===== */
+
+.detail-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+
+    padding: 60px 8%;
+    box-sizing: border-box;
+
+    height: 100vh;   /* 占满屏幕 */
+}
+
+/* 左侧诗歌区 */
+.poem-section {
+    background: rgba(255,255,255,0.9);
+
+    height: 100%;
+    overflow-y: auto;     /* 出现独立滚动条 */
+
+    padding: 40px;
+    border-radius: 12px;
+
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.poem-title {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.poem-author {
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.poem-content p {
+    line-height: 2;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+/* 右侧AI区 */
+.ai-section {
+    background: rgba(255,255,255,0.95);
+
+    height: 100%;
+    overflow-y: auto;     /* 第二个滚动条 */
+    padding: 40px;
+    border-radius: 12px;
+    border: 2px solid #d8d2c2;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.ai-title {
+    font-size: 22px;
+    margin-bottom: 25px;
+}
+
+/* 控制区域 */
+.ai-controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.ai-controls select {
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+
+.ai-btn {
+    padding: 8px 18px;
+    background-color: #92730d;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.ai-btn:hover {
+    background-color: #b8951d;
+}
+
+/* 结果区域 */
+.ai-result {
+    margin-top: 20px;
+    line-height: 1.8;
+    font-size: 16px;
+    white-space: pre-line;
+}
+
+.loading-text {
+    color: #888;
+    font-style: italic;
+}
+
+.pagination {
+    margin-top: 30px;      /* 拉开和诗歌卡片距离 */
+    margin-left: 30px;     /* 向右移动 */
+}
+
+/*返回按键*/
+.home-btn {
+    display: inline-block;
+    width: 120px;      /* 根据图片大小调整 */
+    height: 45px;      /* 根据图片大小调整 */
+    background-image: url("/static/homebutton.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.home-btn:active {
+    transform: scale(0.95);
+}
+
+.home-btn:hover {
+    transform: translateY(-1px);
+}
+
+.chart-container{
+    width: 85%;
+    margin: 0 auto;
+    margin-bottom: 50px;
+}
+
+#poetPie{
+    width: 100%;
+    height: 500px;
+}
+
+.agent-container{
+    position:fixed;   /* 固定在页面 */
+    top:50px;         /* 距离顶部 */
+    right:50px;       /* 距离右侧 */
+    z-index:999;      /* 保证在最上层 */
+}
+
+/* SVG */
+.agent-img{
+    display:block;
+    z-index: 1;
+    animation:agentBreath 3s ease-in-out infinite;
+}
+
+/* 呼吸动画 */
+@keyframes agentBreath{
+
+0%{
+transform:scale(1);
+}
+
+50%{
+transform:scale(1.06);
+}
+
+100%{
+transform:scale(1);
+}
+
+}
+
+/* 气泡 */
+.agent-bubble{
+    position:absolute;
+    top:10px;
+    right:80px;
+    background:#ffffff;
+    border-radius:20px;
+    padding:8px 14px;
+    font-size:14px;
+    font-family:FontEnglish;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+    color: #c9a227;
+    white-space:nowrap;
+    opacity:0;
+    transform:translateX(10px);
+    transition:all 0.3s ease;
+
+}
+
+/* hover出现气泡 */
+.agent-container:hover .agent-bubble{
+    opacity:1;
+    transform:translateX(0);
+}
+
+.agent-circle{
+    position:absolute;
+    width:76px;
+    height:76px;
+    background:white;
+    border-radius:50%;
+    top:50%;
+    left:47%;
+    transform:translate(-50%,-50%);
+    z-index:0;
+    box-shadow:0 0 20px rgba(0,0,0,0.1);
+}
+
+.palace-news{
+    position:absolute;
+    right:180px;
+    top:185px;
+    width:450px;
+    background-image: url("/static/news_bk.png");
+    background-size: cover;
+    background-position: center;
+    border:1px solid #e5d3a3;
+    border-radius:12px;
+    padding:18px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.12);
+    z-index:10;
+}
+
+.palace-news ul{
+    list-style:disc;
+    padding-left:10px;
+    margin:0;
+}
+
+.palace-news li{
+    margin-bottom:12px;
+    font-family: "FontEnglish";
+    font-size:20px;
+    line-height:1.5;
+}
+
+.palace-news a{
+    text-decoration:none;
+    color:#5a0f0f;
+}
+
+.palace-news a:hover{
+    color:#c9a227;
+}
+
+.palace-news h2{
+    margin-top:10px;        /* 去掉上间距 */
+    margin-bottom:30px;  /* 控制标题和列表距离 */
+}
+
+.palace-news::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(255,255,255,0.65);  /* 半透明遮罩 */
+    border-radius: 12px;
+    z-index:1;
+}
+
+.palace-news *{
+    position:relative;
+    z-index:2;
+}
